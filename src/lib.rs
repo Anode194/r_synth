@@ -4,7 +4,6 @@ use cpal::traits::{DeviceTrait, EventLoopTrait, HostTrait};
 use cpal::{StreamData, UnknownTypeOutputBuffer};
 use rand::prelude::*;
 
-
 pub fn main_loop() {
     let host = cpal::default_host();
     let event_loop = host.event_loop();
@@ -37,7 +36,7 @@ pub fn main_loop() {
         StreamData::Output { buffer: UnknownTypeOutputBuffer::I16(mut buffer) } => {
             for elem in buffer.iter_mut() {
                 let div: i16 = rng.gen_range(1,i16::max_value());
-                *elem =div ;
+                *elem = div;
             }
         },
         StreamData::Output { buffer: UnknownTypeOutputBuffer::F32(mut buffer) } => {
@@ -50,37 +49,20 @@ pub fn main_loop() {
     }
     });
 }
+//TODO: functions for generating various waves. these should be generic so they can be used with
+//any type of stream_data
 #[allow(dead_code)]
-pub struct WaveTable {
-   pub wave: Vec<f64>
-}
-#[allow(dead_code)]
-impl WaveTable {
-    pub fn new() -> WaveTable {
-       WaveTable { wave: Vec::new() } 
-    }
+fn sin_wave() -> i16 {
 
+2
+}
 #[allow(dead_code)]
-    pub fn sin_wave(amplitude: f64, period: i16) ->  WaveTable {
-        let mut sin = WaveTable::new();
-        for elem in 0..period {
-            let table_size = elem as f64;
-            let mut value = amplitude * table_size.sin();
-            //value = value * 50.0;
-            sin.wave.push(value);
-        }
-        sin
-    }
-//    fn square_wave<T>(amplitude: period: i16) -> WaveTable {
-
- //   }
-    //pub fn ramp_up(height: f32, period:f32) {}
-    //pub fn ramp_down(height: f32, period:i16) {}
+fn square_wave<T>(pulse_width: T) -> T {
+   pulse_width 
 }
-    //pub fn noise() {}
-        
-pub fn print_waveTable(table: WaveTable) {
-    for elem in table.wave.iter() {
-        println!("{}",elem);
-    }
-}
+#[allow(dead_code)]
+fn ramp_up() {}
+#[allow(dead_code)]
+fn ramp_down() {}
+#[allow(dead_code)]
+fn noise() {}
